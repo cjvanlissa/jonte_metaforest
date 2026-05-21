@@ -1,0 +1,61 @@
+crt_sim <- function(cl, simulated_data, file_stem, ...){
+
+  crt_models <- parLapply(cl, simulated_data, function(data) {
+    Args <- list(
+      formula = force(as.formula(paste0("yi~", paste0(names(data$training)[-c(1:2)], collapse = "+")))),
+      data = data$training,
+      vi = data$training$vi)
+    suppressWarnings(
+      do.call(FEmrt, Args))
+  })
+  
+  crt_fits <- t(
+    clusterMap(
+      cl,
+      fun = function(models, data) {
+        c(
+          model_accuracy(
+            fit = models,
+            newdata = subset(data[[1]], select = -c(1, 2)),
+            observed = data[[1]]$yi
+          ),
+          model_accuracy(
+            fit = models,
+            newdata = subset(data[[2]], select = -1),
+            observed = data[[2]]$yi,
+            ymean = mean(data[[1]]$yi)
+          )
+        )
+      },
+      models = crt_models,
+      data = simulated_data,
+      SIMPLIFY = TRUE,
+      USE.NAMES = FALSE
+    )
+  )
+  
+  crt_importance <- do.call(rbind, parLapply(
+    cl = cl,
+    crt_models,
+    fun = function(models) {
+      out <- rep(0, (ncol(models$data)-3))
+      if(!is.null(models[["tree"]])){
+        vi <- invisible(summary(models[["tree"]])$variable.importance)
+        out[match(names(vi), names(models$data)[-c(1, (ncol(models$data)-1), ncol(models$data))])] <- (vi/sum(vi))*100
+      }
+      out
+    }
+  ))
+  
+  file_name <-
+    paste0(paste(c(file_stem, "fits", chunk), collapse = "_"), ".RData")
+  saveRDS(crt_fits, file = file_name, compress = FALSE)
+  
+  file_name <-
+    paste0(paste(c(file_stem, "selected", chunk), collapse = "_"), ".RData")
+  saveRDS(crt_importance,
+          file = file_name,
+          compress = FALSE)
+  
+  rm(crt_fits, crt_importance, crt_models)
+}

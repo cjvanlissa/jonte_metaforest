@@ -1,0 +1,26 @@
+{
+    "id": "A9AD6745",
+    "path": "~/git_repositories/jonte_myers/sim_functions.R",
+    "project_path": "sim_functions.R",
+    "type": "r_source",
+    "hash": "3074410451",
+    "contents": "",
+    "dirty": false,
+    "created": 1779021445698.0,
+    "source_on_save": false,
+    "relative_order": 11,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "5,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1779021448,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1779021448579,
+    "read_only": false,
+    "read_only_alternatives": []
+}

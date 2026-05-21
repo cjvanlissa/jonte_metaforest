@@ -1,0 +1,26 @@
+{
+    "id": "5CF151FA",
+    "path": "~/git_repositories/jonte_myers/simulation.R",
+    "project_path": "simulation.R",
+    "type": "r_source",
+    "hash": "2337076359",
+    "contents": "",
+    "dirty": false,
+    "created": 1778916547238.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "74,0",
+        "scrollLine": "53"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1779026850,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1779026850154,
+    "read_only": false,
+    "read_only_alternatives": []
+}
