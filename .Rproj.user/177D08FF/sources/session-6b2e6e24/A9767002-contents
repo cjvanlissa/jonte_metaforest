@@ -12,3 +12,4 @@
 *.pdf
 *.txt
 *.RData
+!effect_of_conditions.csv
